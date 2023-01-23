@@ -27,24 +27,26 @@ createGalleryItems();
 galleryWrapper.addEventListener("click", handleClickImg);
 
 function handleClickImg(event) {
+    event.preventDefault();
+
     if (event.target.nodeName !== "IMG") {
         return;
     }
-   const selectedImg = event.target.dataset.source;
 
+   const selectedImg = event.target.dataset.source;
    showImg(selectedImg);
 }
 
 function showImg(url) {
     const instance = basicLightbox.create(`
-    <img src="${url}" width="800" height="600">
+<img src="${url}" width="800" height="600">
 `)
 instance.show();
-window.addEventListener("keydown",handleKeydown);
+document.addEventListener("keydown",handleKeydown);
   
   function handleKeydown(event) {
     if (event.code === "Escape") {
-        window.removeEventListener("keydown", handleKeydown);
+        document.removeEventListener("keydown", handleKeydown);
         instance.close();
     }   
   }
